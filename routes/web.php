@@ -30,5 +30,5 @@ Route::get('/task/{task}/edit', [UserController::class, 'edit']);
 // update task into DB
 Route::put('/task/{task}', [UserController::class, 'update']);
 // delete task
-Route::delete('/task/{task}', [UserController::class, 'delete']);
+Route::delete('/task/{task}', [UserController::class, 'destroy']);
 
