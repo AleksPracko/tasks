@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,13 +22,13 @@ Route::get('/task', [TaskController::class, 'index']);
 // Show form for creating tasks
 Route::get('/task/create', [TaskController::class, 'create']);
 // show single task
-Route::get('/task/{task}', [UserController::class, 'show']);
+Route::get('/task/{task}', [TaskController::class, 'show']);
 // store task into db
-Route::post('/task', [UserController::class, 'store']);
+Route::post('/task', [TaskControllerr::class, 'store']);
 // show form for editing tasks
-Route::get('/task/{task}/edit', [UserController::class, 'edit']);
+Route::get('/task/{task}/edit', [TaskController::class, 'edit']);
 // update task into DB
-Route::put('/task/{task}', [UserController::class, 'update']);
+Route::put('/task/{task}', [TaskController::class, 'update']);
 // delete task
-Route::delete('/task/{task}', [UserController::class, 'destroy']);
+Route::delete('/task/{task}', [TaskController::class, 'destroy']);
 
