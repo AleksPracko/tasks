@@ -36,7 +36,8 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tasks=[];
+        return view('task.index', ['tasks' => $tasks]);
     }
 
     /**
@@ -70,7 +71,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        return view('task.edit');
+        
     }
 
     /**
@@ -81,6 +84,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tasks=[];
+        return view('task.index', ['tasks' => $tasks]);
     }
 }
