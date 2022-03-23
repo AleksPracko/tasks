@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -13,7 +14,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks=[];
+        $tasks = DB::select('select id, name, description, completed from tasks');
         return view('task.index', ['tasks' => $tasks]);
     }
 
@@ -36,8 +37,13 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        $tasks=[];
-        return view('task.index', ['tasks' => $tasks]);
+        $task = DB::insert('insert into tasks (name, description) values (:name, :description)', 
+        [':name' => $request->name, ':description' => $request->description]);
+
+        $tasks = DB::select('select name, description, completed from tasks');
+
+        return redirect('/task');
+        
     }
 
     /**
@@ -48,7 +54,9 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return view('task.show');
+        $task = DB::select('select name, description, completed from tasks where id = :id', ['id' => $id]);
+
+        return view('task.show', ['task' => $task[0]]);
     }
 
     /**
@@ -59,7 +67,10 @@ class TaskController extends Controller
      */
     public function edit($id)
     {
-        return view('task.edit');
+        $task = DB::select('select id, name, description, completed from tasks where id = :id', ['id' => $id]);
+
+        return view('task.edit', ['task' => $task[0]]);
+       
     }
 
     /**
@@ -71,8 +82,9 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-
-        return view('task.edit');
+        DB::update('update tasks set name = :name, description = :description where id = :id',
+        [':name' => $request->name, ':description' => $request->description, 'id' => $id]);
+        return redirect('/task');
         
     }
 
@@ -84,7 +96,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        $tasks=[];
-        return view('task.index', ['tasks' => $tasks]);
+        DB::delete('delete from tasks where id = :id', [':id' =>$id]);
+        return redirect('/task');
     }
 }

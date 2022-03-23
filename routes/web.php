@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+
+     return view('welcome');
+
+
 });
 
 // show all tasks
@@ -24,7 +28,7 @@ Route::get('/task/create', [TaskController::class, 'create']);
 // show single task
 Route::get('/task/{task}', [TaskController::class, 'show'])->where('task', '[0-9]+');
 // store task into db
-Route::post('/task', [TaskControllerr::class, 'store']);
+Route::post('/task', [TaskController::class, 'store']);
 // show form for editing tasks
 Route::get('/task/{task}/edit', [TaskController::class, 'edit']);
 // update task into DB
